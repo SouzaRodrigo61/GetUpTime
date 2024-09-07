@@ -5,9 +5,6 @@ import PackageDescription
   import ProjectDescription
 
   let packageSettings = PackageSettings(
-    // Customize the product types for specific package product
-    // Default is .staticFramework
-    // productTypes: ["Alamofire": .framework,] 
     productTypes: [:]
   )
 #endif
@@ -15,8 +12,10 @@ import PackageDescription
 let package = Package(
   name: "GetUpTime",
   dependencies: [
-    // Add your own dependencies here:
-    // .package(url: "https://github.com/Alamofire/Alamofire", from: "5.0.0"),
     // You can read more about dependencies here: https://docs.tuist.io/documentation/tuist/dependencies
+    .package(url: "https://github.com/pointfreeco/swift-perception", from: "1.3.5"),
+    .package(url: "https://github.com/pointfreeco/swift-dependencies", from: "1.3.9"),
+    .package(url: "https://github.com/pointfreeco/swift-navigation", from: "2.2.0"),
+    .package(url: "https://github.com/airbnb/epoxy-ios", branch: "master"),
   ]
 )

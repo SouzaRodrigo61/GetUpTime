@@ -1,3 +1,3 @@
 import ProjectDescription
 
-let config = Config()
+let config = Config(generationOptions: .options(enforceExplicitDependencies: true))

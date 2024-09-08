@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import Tester1
+@testable import GetUpTime
 
 final class Tester1Tests: XCTestCase {
 

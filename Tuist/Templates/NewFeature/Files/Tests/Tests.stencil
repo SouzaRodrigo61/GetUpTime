@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import {{ name }}
+@testable import GetUpTime
 
 final class {{ name }}Tests: XCTestCase {
 

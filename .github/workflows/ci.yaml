@@ -16,14 +16,8 @@ jobs:
     - name: Checkout source code
       uses: actions/checkout@v3
 
-    - name: Install Xcode Command Line Tools
-      run: xcode-select --install || echo "Xcode Command Line Tools already installed"
-
-    - name: Install Swift with Xcode
-      run: |
-        sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
-        sudo xcodebuild -runFirstLaunch
-        xcrun swift --version
+    - name: Select Xcode 16.0 Beta 6
+      run: sudo xcode-select -switch /Applications/Xcode_16.0_beta_6.app/Contents/Developer
 
     - name: Install Homebrew if not present
       run: |

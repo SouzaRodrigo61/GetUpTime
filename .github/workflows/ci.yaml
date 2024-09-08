@@ -38,7 +38,7 @@ jobs:
       run: tuist generate
 
     - name: Build and Test
-      run: tuist test --all
+      run: tuist test
 
     - name: Upload Test Results
       if: always()

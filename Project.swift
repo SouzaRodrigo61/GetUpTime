@@ -4,7 +4,7 @@ let project = Project(
   name: "GetUpTime",
   settings: .settings(configurations: [
     .debug(name: "Debug", xcconfig: "./xcconfigs/GetUpTime-Project.xcconfig"), 
-    .debug(name: "Release", xcconfig: "./xcconfigs/GetUpTime-Project.xcconfig"), 
+    .release(name: "Release", xcconfig: "./xcconfigs/GetUpTime-Project.xcconfig"), 
   ]),
   targets: [
     .target( 
@@ -29,7 +29,7 @@ let project = Project(
       ],
       settings: .settings(configurations: [
         .debug(name: "Debug", xcconfig: "./xcconfigs/GetUpTime.xcconfig"), 
-        .debug(name: "Release", xcconfig: "./xcconfigs/GetUpTime.xcconfig"), 
+        .release(name: "Release", xcconfig: "./xcconfigs/GetUpTime.xcconfig"), 
       ]) 
     ),
     .target(

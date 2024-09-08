@@ -1,0 +1,16 @@
+//
+//  {{ name }}ViewController.swift
+//  GetUpTime
+//
+//  Created by {{ author }} on {{ date }}.
+//
+
+import UIKit
+
+final class {{ name }}ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+    }
+}

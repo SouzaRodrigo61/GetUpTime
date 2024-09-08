@@ -13,6 +13,8 @@ extension CoreApp {
             _ application: UIApplication,
             didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
         ) -> Bool {
+            
+            dump("AppDelegate -> didFinishLaunchingWithOptions")
             return true
         }
     }

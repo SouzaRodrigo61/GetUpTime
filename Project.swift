@@ -15,8 +15,8 @@ let project = Project(
       deploymentTargets: .iOS("16.0"),
       sources: ["GetUpTime/**"],
       resources: [
-        "GetUpTime/Assets.xcassets/**",
-        "GetUpTime/Preview Content/**"
+        "GetUpTime/Resources/Assets.xcassets/**",
+        "GetUpTime/Resources/Preview Content/**"
       ], 
       dependencies: [
         .external(name: "Epoxy"),               // Epoxy from epoxy-ios

@@ -10,6 +10,8 @@ import UIKitNavigation
 
 @main
 struct GetUpTimeApp: App {
+    @UIApplicationDelegateAdaptor(CoreApp.Delegate.self) var appDelegate
+    
     var body: some Scene {
         WindowGroup {
             UIViewControllerRepresenting {

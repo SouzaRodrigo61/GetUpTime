@@ -1,0 +1,12 @@
+//
+//  {{ name }}Controller.swift
+//  GetUpTime
+//
+//  Created by {{ author }} on {{ date }}.
+//
+
+import UIKit
+
+extension {{ name }} {
+    struct Controller { }
+}

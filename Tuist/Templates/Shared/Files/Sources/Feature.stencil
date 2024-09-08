@@ -1,0 +1,8 @@
+//
+//  {{ name }}.swift
+//  GetUpTime
+//
+//  Created by {{ author }} on {{ date }}.
+//
+
+enum {{ name }} { }

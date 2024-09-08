@@ -51,11 +51,11 @@ let template = Template(
     ],
     items: [
         .file(
-            path: "GetUpTime/Modules/\(nameAttribute)/\(nameAttribute)ViewController.swift",
-            templatePath: "Files/Sources/ViewController.stencil"
+            path: "GetUpTime/Shared/\(nameAttribute)/\(nameAttribute).swift",
+            templatePath: "Files/Sources/Feature.stencil"
         ),
         .file(
-            path: "GetUpTimeTests/Modules/\(nameAttribute)/\(nameAttribute)Tests.swift",
+            path: "GetUpTimeTests/Shared/\(nameAttribute)/\(nameAttribute)Tests.swift",
             templatePath: "Files/Tests/Tests.stencil"
         ),
     ]

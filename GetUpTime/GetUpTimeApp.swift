@@ -15,7 +15,7 @@ struct GetUpTimeApp: App {
     var body: some Scene {
         WindowGroup {
             UIViewControllerRepresenting {
-                HomeView()
+                Home.ViewController()
             }
         }
     }

@@ -17,6 +17,8 @@ PRODUCT_NAME=$(TARGET_NAME)
 SWIFT_EMIT_LOC_STRINGS=YES
 SWIFT_VERSION=5.0
 TARGETED_DEVICE_FAMILY=1,2
+INFOPLIST_KEY_CFBundleDisplayName=GetUp
+INFOPLIST_KEY_LSApplicationCategoryType=public.app-category.healthcare-fitness
 
 LD_RUNPATH_SEARCH_PATHS[config=Debug]=$(inherited) @executable_path/Frameworks
 LD_RUNPATH_SEARCH_PATHS[config=Release]=$(inherited) @executable_path/Frameworks

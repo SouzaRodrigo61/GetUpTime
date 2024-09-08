@@ -1,3 +1,6 @@
 import ProjectDescription
 
-let config = Config(generationOptions: .options(enforceExplicitDependencies: true))
+let config = Config(
+    swiftVersion: "5.0",
+    generationOptions: .options(enforceExplicitDependencies: true)
+)

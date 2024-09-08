@@ -30,27 +30,27 @@ let project = Project(
       settings: .settings(configurations: [
         .debug(name: "Debug", xcconfig: "./xcconfigs/GetUpTime.xcconfig"), 
         .release(name: "Release", xcconfig: "./xcconfigs/GetUpTime.xcconfig"), 
-      ]) 
+      ])
     ),
     .target(
-        name: "GetUpTimeTests",
-        destinations: .iOS,
-        product: .unitTests,
-        bundleId: "com.getuptime.app.GetUpTime.unitTest",
-        sources: ["GetUpTimeTests/**"],
-        dependencies: [
-            .target(name: "GetUpTime")
-        ]
+      name: "GetUpTimeTests",
+      destinations: .iOS,
+      product: .unitTests,
+      bundleId: "com.getuptime.app.GetUpTime.unitTest",
+      sources: ["GetUpTimeTests/**"],
+      dependencies: [
+          .target(name: "GetUpTime")
+      ]
     ),
     .target(
-        name: "GetUpTimeUITests",
-        destinations: .iOS,
-        product: .uiTests,
-        bundleId: "com.getuptime.app.GetUpTime.uiTests",
-        sources: ["GetUpTimeUITests/**"],
-        dependencies: [
-            .target(name: "GetUpTime")
-        ]
+      name: "GetUpTimeUITests",
+      destinations: .iOS,
+      product: .uiTests,
+      bundleId: "com.getuptime.app.GetUpTime.uiTests",
+      sources: ["GetUpTimeUITests/**"],
+      dependencies: [
+          .target(name: "GetUpTime")
+      ]
     ),
   ]
 )

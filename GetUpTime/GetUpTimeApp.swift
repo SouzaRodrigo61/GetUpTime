@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import UIKitNavigation
 
 @main
 struct GetUpTimeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            UIViewControllerRepresenting {
+                HomeView()
+            }
         }
     }
 }

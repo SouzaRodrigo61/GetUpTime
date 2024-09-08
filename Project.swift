@@ -11,7 +11,8 @@ let project = Project(
       name: "GetUpTime", 
       destinations: .iOS, 
       product: .app,
-      bundleId: "com.getuptime.app.GetUpTime", 
+      bundleId: "com.getuptime.app.GetUpTime",
+      deploymentTargets: .iOS("16.0"),
       sources: ["GetUpTime/**"],
       resources: [
         "GetUpTime/Assets.xcassets/**",

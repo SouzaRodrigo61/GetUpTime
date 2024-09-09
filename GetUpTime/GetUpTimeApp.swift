@@ -15,8 +15,9 @@ struct GetUpTimeApp: App {
     var body: some Scene {
         WindowGroup {
             UIViewControllerRepresenting {
-                Home.ViewController()
+                Airbnb.ViewController()
             }
+            .ignoresSafeArea()
         }
     }
 }

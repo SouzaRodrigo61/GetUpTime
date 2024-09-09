@@ -18,6 +18,7 @@ let project = Project(
         "GetUpTime/Resources/Assets.xcassets/**",
         "GetUpTime/Resources/Preview Content/**"
       ], 
+      entitlements: "GetUpTime/GetUpTime.entitlements",
       dependencies: [
         .external(name: "Epoxy"),               // Epoxy from epoxy-ios
         .external(name: "Dependencies"),        // Dependencies from swift-dependencies

@@ -226,9 +226,8 @@ extension Home.TextRow: DisplayRespondingView {
 extension Home.Label.Style {
     static func style(
         with textStyle: UIFont.TextStyle,
-        showBackground: Bool = false)
-    -> Home.Label.Style
-    {
+        showBackground: Bool = false
+    ) -> Home.Label.Style {
         .init(
             font: UIFont.preferredFont(forTextStyle: textStyle),
             showLabelBackground: showBackground)
@@ -261,9 +260,8 @@ extension NSCollectionLayoutSection {
     }
     
     static func listWithHeader(
-        layoutEnvironment: NSCollectionLayoutEnvironment)
-    -> NSCollectionLayoutSection
-    {
+        layoutEnvironment: NSCollectionLayoutEnvironment
+    ) -> NSCollectionLayoutSection {
         let section = list(layoutEnvironment: layoutEnvironment)
         
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(

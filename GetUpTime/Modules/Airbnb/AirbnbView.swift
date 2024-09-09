@@ -323,10 +323,16 @@ extension NSCollectionLayoutSection {
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                heightDimension: .estimated(44))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16)
+        
+        // Adiciona interItemSpacing entre os itens no grupo
+        group.interItemSpacing = .fixed(0) // Você pode ajustar isso para espaçamento entre itens, se necessário
         
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 16
+        
+        // Adiciona padding diretamente na seção para espaçamento global
+        section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 16)
+        
         
         section.orthogonalScrollingBehavior = .none
         

@@ -17,11 +17,14 @@ extension Airbnb {
         }
         
         private var headerImageView: ImageRow?
+        private let headerHeight: CGFloat = 300 // Altura padrão do header
+        private let maxHeaderHeight: CGFloat = 600 // Altura máxima do header durante o stretch
+        
         
         init() {
             super.init(layout: UICollectionViewCompositionalLayout { sectionIndex, _ -> NSCollectionLayoutSection? in
                 switch sectionIndex {
-                case 0: return .stickyHeader
+                case 0: return .stretchyHeader
                 default: return .list
                 }
             })
@@ -40,12 +43,38 @@ extension Airbnb {
             }
         }
         
-        func scrollViewDidScroll(_ scrollView: UIScrollView) {
-            guard let headerImageView = headerImageView else { return }
-            
-            headerImageView.adjustHeightForScroll(scrollView)
+        
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+            if section == 0 {
+                return CGSize(width: collectionView.bounds.width, height: headerHeight)
+            }
+            return .zero
         }
-
+        
+        func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            let offsetY = scrollView.contentOffset.y
+            
+            if let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0)) {
+                if offsetY < 0 {
+                    let stretchAmount = min(-offsetY, maxHeaderHeight - headerHeight)
+                    let scale = 1 + (stretchAmount / headerHeight)
+                    
+                    header.frame.origin.y = offsetY
+                    header.frame.size.height = headerHeight + stretchAmount
+                    
+                    // Aplicar zoom suave à imagem do header
+                    if let imageView = header.subviews.first as? UIImageView {
+                        imageView.transform = CGAffineTransform(scaleX: scale, y: scale)
+                    }
+                } else {
+                    header.frame.size.height = headerHeight
+                    
+                    if let imageView = header.subviews.first as? UIImageView {
+                        imageView.transform = .identity
+                    }
+                }
+            }
+        }
         
         @SectionModelBuilder
         private var sections: [SectionModel] {
@@ -71,7 +100,7 @@ extension Airbnb {
                     self?.headerImageView = context.view
                 }
             ])
-            .compositionalLayoutSection(.stickyHeader)
+            .compositionalLayoutSection(.stretchyHeader)
             
             
             // Details Section
@@ -116,9 +145,9 @@ extension Airbnb {
             .compositionalLayoutSection(.list)
         }
     }
-
+    
     // MARK: - Custom Row Types
-
+    
     final class ImageRow: UIView, EpoxyableView {
         private let imageView = UIImageView()
         
@@ -149,12 +178,6 @@ extension Airbnb {
                 imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
                 imageView.bottomAnchor.constraint(equalTo: bottomAnchor)
             ])
-            
-            switch style {
-            case .large:
-                heightConstraint = heightAnchor.constraint(equalToConstant: 300)
-                heightConstraint?.isActive = true
-            }
         }
         
         struct Content: Equatable {
@@ -164,24 +187,11 @@ extension Airbnb {
         func setContent(_ content: Content, animated: Bool) {
             imageView.image = UIImage(named: content.imageName)
         }
-        
-        // Função para aplicar o efeito de esticamento
-        func adjustHeightForScroll(_ scrollView: UIScrollView) {
-            let offsetY = scrollView.contentOffset.y
-            
-            if offsetY < 0 {
-                transform = CGAffineTransform(translationX: 0, y: offsetY)
-            } else {
-                // Restaura a altura e posição normal
-                heightConstraint?.constant = 300
-                transform = .identity
-            }
-        }
     }
-
+    
     // ... (rest of the custom row types remain the same)
-
-
+    
+    
     final class TextRow: UILabel, EpoxyableView {
         enum Style {
             case title, subtitle, sectionTitle
@@ -221,7 +231,7 @@ extension Airbnb {
             text = content.title
         }
     }
-
+    
     final class IconTextRow: UIView, EpoxyableView {
         private let iconImageView = UIImageView()
         private let label = UILabel()
@@ -270,7 +280,7 @@ extension Airbnb {
             label.text = content.text
         }
     }
-
+    
     final class ButtonRow: UIButton, EpoxyableView {
         enum Style {
             case primary, secondary
@@ -315,7 +325,7 @@ extension Airbnb {
 // MARK: - Helpers
 
 extension NSCollectionLayoutSection {
-    static var stickyHeader: NSCollectionLayoutSection {
+    static var stretchyHeader: NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                               heightDimension: .estimated(44))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -324,35 +334,27 @@ extension NSCollectionLayoutSection {
                                                heightDimension: .estimated(44))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         
-        // Adiciona interItemSpacing entre os itens no grupo
-        group.interItemSpacing = .fixed(0) // Você pode ajustar isso para espaçamento entre itens, se necessário
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
         
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 16
         
-        // Adiciona padding diretamente na seção para espaçamento global
-        section.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 16)
-        
-        
-        section.orthogonalScrollingBehavior = .none
-        
-        // Ajuste para o header
+        // Configuração do header
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                heightDimension: .absolute(300))
         let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(300)),
+            layoutSize: headerSize,
             elementKind: UICollectionView.elementKindSectionHeader,
             alignment: .top)
-
-        sectionHeader.pinToVisibleBounds = true
-        sectionHeader.zIndex = -1 // Colocando em 1 para garantir que o header fique acima dos outros itens.
-        sectionHeader.extendsBoundary = false
         
-        // Ajuste os contentInsets da seção para evitar sobreposição
-        section.contentInsets = NSDirectionalEdgeInsets(top: 300, leading: 0, bottom: 0, trailing: 0)
+        sectionHeader.pinToVisibleBounds = false
+        sectionHeader.zIndex = 1
+        
         section.boundarySupplementaryItems = [sectionHeader]
         
         return section
     }
-
+    
     static var list: NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                               heightDimension: .estimated(44))

@@ -348,9 +348,11 @@ extension NSCollectionLayoutSection {
             alignment: .top)
         
         sectionHeader.pinToVisibleBounds = false
-        sectionHeader.zIndex = 1
+        sectionHeader.zIndex = -1
         
         section.boundarySupplementaryItems = [sectionHeader]
+        section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0)
+        
         
         return section
     }
